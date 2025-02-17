@@ -16,6 +16,10 @@ const chatChannel = consumer.subscriptions.create({ channel: "ChatChannel" }, {
     if (data.message) {
       let current_name = sessionStorage.getItem('chat_room_name')
       let msg_class = data.sent_by === current_name ? "sent" : "received"
+
+      const messages = document.getElementById("messages");
+      var content = document.createTextNode(data.message+"\n")
+      messages.appendChild(content)
       // $('#messages').append(`<p class='${msg_class}'>` + data.message + '</p>')
     } else if(data.chat_room_name) {
       let name = data.chat_room_name;
@@ -23,14 +27,14 @@ const chatChannel = consumer.subscriptions.create({ channel: "ChatChannel" }, {
       // $('#messages').append(`<p class="announce"><em>${name}</em> ${announcement_type} the room</p>`)
     }
 
-    var sd = 'after-rcv';
-    var that = this
-    var fn = function() { that.speak(sd); }
-    setTimeout(fn, 3000);
+    // var sd = 'after-rcv';
+    // var that = this
+    // var fn = function() { that.speak(sd); }
+    // setTimeout(fn, 3000);
   },
 
   speak(message) {
-    console.log("chat speak");
+    console.log("chat speak '" + message + "'");
 
     let name = sessionStorage.getItem('chat_room_name')
     this.perform('speak', { message, name })
@@ -42,5 +46,14 @@ const chatChannel = consumer.subscriptions.create({ channel: "ChatChannel" }, {
     this.perform('announce', { name: content.name, type: content.type })
   }
 });
+
+function handle_message_send() {
+  console.log("handle_message_send0");
+  const msgForm = document.getElementById("send_message");
+  const txt = msgForm.value
+  msgForm.value = ""
+  chatChannel.speak(txt) // send text over websocket
+  return false; // never submit the form
+}
 
 export default chatChannel;

@@ -48,3 +48,16 @@ section.product img {
 	flex-basis: 50%;
 	max-width: 50%;
 }
+
+div.messages {
+	white-space: pre-wrap;
+	border-style: inset;
+	padding-bottom: 0px;
+	margin-bottom: 0px;
+	max-height: 300px;
+	min-height: 300px;
+	overflow: auto;
+
+	display: flex;
+	flex-direction: column-reverse;
+}

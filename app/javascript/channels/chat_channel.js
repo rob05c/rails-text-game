@@ -1,4 +1,5 @@
 import consumer from "channels/consumer"
+import { AnsiUp } from "channels/ansi_up"
 
 const chatChannel = consumer.subscriptions.create({ channel: "ChatChannel" }, {
   connected() {
@@ -18,11 +19,21 @@ const chatChannel = consumer.subscriptions.create({ channel: "ChatChannel" }, {
       let msg_class = data.sent_by === current_name ? "sent" : "received"
 
       const messages = document.getElementById("messages");
-      var content = document.createTextNode(data.message+"\n")
-      messages.appendChild(content)
+
+      // var content = document.createTextNode(data.message+"\n")
+      // messages.appendChild(content);
+
+      var ansi_up = new AnsiUp();
+      var txt = data.message + "\n";
+      const contentStr = ansi_up.ansi_to_html(txt);
+      var content = document.createElement('span')
+      content.innerHTML = contentStr
+      messages.prepend(content);
+
       // $('#messages').append(`<p class='${msg_class}'>` + data.message + '</p>')
     } else if(data.chat_room_name) {
       let name = data.chat_room_name;
+
       let announcement_type = data.type == 'join' ? 'joined' : 'left';
       // $('#messages').append(`<p class="announce"><em>${name}</em> ${announcement_type} the room</p>`)
     }

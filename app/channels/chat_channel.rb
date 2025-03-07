@@ -1,5 +1,6 @@
 require_relative '../helpers/application_helper'
-require_relative '../../lib/game_service/command'
+
+require 'ruby-text-game'
 
 class ChatChannel < ApplicationCable::Channel
   def subscribed
@@ -18,13 +19,13 @@ class ChatChannel < ApplicationCable::Channel
       logger.info "DEBUGA nonexistent player '#{name}'" if player.nil?
       logger.info "DEBUGA ChatChannel.subscribed got player #{player}"
 
-      inv_str = inventory_str(world, player, [])
+      inv_str = RubyTextGame.inventory_str(world, player, [])
 
       logger.info "DEBUGA ChatChannel.subscribed player inventory #{inv_str}"
 
-      drop(world, player, %w[drop goblin])
+      RubyTextGame.drop(world, player, %w[drop goblin])
 
-      room_desc = look_str(world, player, nil)
+      room_desc = RubyTextGame.look_str(world, player, nil)
       msg = room_desc
 
       player.send_fn = lambda { |msg|
@@ -90,7 +91,7 @@ class ChatChannel < ApplicationCable::Channel
     lmsg = msg.tr('  ', ' ')
     args = lmsg.split(' ')
 
-    cmd = get_command(args)
+    cmd = RubyTextGame.get_command(args)
     world.lock.synchronize do
       player = world.get_player_by_name(@user.name)
       logger.info "DEBUGA ChatChannel.speak nonexistent player '#{name}'" if player.nil?

@@ -2,10 +2,12 @@
 
 WIP text game in the Ruby on Rails. It doesn't do much yet, this is just me playing with / (re)learning Ruby/Rails.
 
+Uses https://github.com/rob05c/ruby-text-game.
+
 # Dependencies
 
 ```sh
-gem install algorithms
+bundle install
 ```
 
 # README

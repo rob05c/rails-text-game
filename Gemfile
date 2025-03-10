@@ -66,4 +66,4 @@ end
 
 # gem "algorithms"
 
-gem 'ruby-text-game', git: 'https://github.com/rob05c/ruby-text-game.git', tag: 'v0.0.11'
+gem 'ruby-text-game', git: 'https://github.com/rob05c/ruby-text-game.git', tag: 'v0.0.12'

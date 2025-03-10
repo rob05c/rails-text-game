@@ -1,10 +1,11 @@
 GIT
   remote: https://github.com/rob05c/ruby-text-game.git
-  revision: 35dfe71526c6cc5b9952f58a703c068f8dc5d78a
-  tag: v0.0.11
+  revision: 8cd0a57c1ceec9e8e54a1165198baf4cb3dac374
+  tag: v0.0.12
   specs:
     ruby-text-game (0.0.1)
       algorithms (~> 1.0)
+      logger
 
 GEM
   remote: https://rubygems.org/

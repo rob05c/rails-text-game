@@ -23,7 +23,7 @@ puts 'DEBUG puts start_game_repl called'
 
 def init_world
   world = RubyTextGame::World.new
-  world.Start # TODO: add world.Stop? Where?
+  world.start # TODO: add world.Stop? Where?
   ApplicationHelper.set_world(world)
 
   puts 'DEBUG init_world 0'
